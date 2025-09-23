@@ -1,0 +1,487 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  transition: background 0.3s, color 0.3s;
+  background: var(--bg-color, #f8f9fa);
+  color: var(--text-color, #333);
+}
+
+
+/* CSS Custom Properties for theming */
+:root {
+  --bg-color: #f8f9fa;
+  --text-color: #333;
+  --nav-bg: #fff;
+  --nav-text: #333;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: var(--nav-bg);
+  color: var(--nav-text);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+}
+
+.nav-links li {
+  margin-left: 2rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: inherit;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: #007bff;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+
+/* IMPROVED HERO SECTION - Fixed issues */
+.hero {
+  position: relative;
+  width: 100vw;         /* full viewport width */
+  height: 40vh;         /* change to 100vh for full screen height */
+  min-height: 300px;
+  overflow: hidden;
+}
+
+
+.hero-img {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;         /* important: fills while keeping aspect ratio */
+  object-position: 50% 50%;  /* center the image */
+}
+
+.hero-text {
+  position: relative;
+  z-index: 2;
+  color: white;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin: 0;
+}
+
+.hero p {
+  font-size: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.theme-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  margin-right: 1rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: background 0.3s;
+}
+
+.theme-btn:hover {
+  background: rgba(0,0,0,0.1);
+}
+
+.burger {
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: none;
+  padding: 0.5rem;
+}
+
+/* Mobile menu */
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  list-style: none;
+  background: var(--nav-bg);
+  padding: 1rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.mobile-menu li {
+  margin-bottom: 1rem;
+}
+
+.mobile-menu a {
+  color: inherit;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* Show mobile menu when active */
+.mobile-menu.active {
+  display: flex;
+}
+
+/* Sections */
+section {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+section.hero {
+  padding: 0;           /* remove the 2rem side padding */
+  max-width: none;      /* remove the 1200px cap */
+  margin: 0;            /* don't center it */
+  width: 100vw;         /* span the full viewport width */
+  margin-left: calc(50% - 50vw);   /* shift to align with viewport left */
+  margin-right: calc(50% - 50vw);  /* shift to align with viewport right */
+  overflow: hidden;
+  position: relative;   /* positioning context for absolute img */
+  height: 40vh;         /* your desired hero height */
+  min-height: 300px;
+}
+section.hero .hero-img {
+  position: absolute;
+  inset: 0;               /* top:0; right:0; bottom:0; left:0; */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+  display: block;
+}
+
+section.hero .hero-text {
+  position: relative;
+  z-index: 2;
+  color: white;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* About Section Layout */
+.about-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.about-text {
+  flex: 2;
+  min-width: 280px;
+  font-size: 20px;
+  line-height: 1.6;
+  color: var(--text-color);
+  padding-right: 3rem;
+}
+
+.about-profile {
+  flex: 1;
+  min-width: 240px;
+  text-align: center;
+}
+
+.profile-pic {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+.caption {
+  font-style: italic;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.social-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.social-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.7rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #f5f5f5;
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.social-btn:hover {
+  background: #ddd;
+  transform: translateY(-2px);
+}
+
+.social-icon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+/* Portfolio Tile Grid System */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+/* Ensure 3 columns at full screen */
+@media (min-width: 1000px) {
+  .portfolio-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Portfolio Tiles */
+.portfolio-tile {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.portfolio-tile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  background: #e9ecef;
+}
+
+.portfolio-tile-image {
+  width: 100%;
+  height: 200px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.portfolio-tile-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.portfolio-tile-content {
+  padding: 1.5rem;
+}
+
+.portfolio-tile h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+  color: #333;
+}
+
+.portfolio-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.portfolio-pill {
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* UPDATED PILL COLORS - Fixed the red "Tools:" label and added tool-specific colors */
+.pill-label {
+  background: #6c757d; /* Changed from red to grey */
+  color: white;
+}
+
+/* Tool-specific colors */
+.pill-python {
+  background: #55b004;
+  color: white;
+}
+
+.pill-pandas {
+  background: #150458;
+  color: white;
+}
+
+.pill-sql {
+  background: #f605e2;
+  color: white;
+}
+
+.pill-tableau {
+  background: #f00808;
+  color: white;
+}
+
+.pill-r {
+  background: #4683cd;
+  color: white;
+}
+
+.pill-excel, .pill-sheets {
+  background: #217346;
+  color: white;
+}
+
+.pill-jupyter {
+  background: #f37626;
+  color: white;
+}
+
+.pill-tool {
+  background: #6c757d;
+  color: white;
+}
+
+.portfolio-link {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.portfolio-link:hover {
+  text-decoration: underline;
+}
+
+/* DARK THEME STYLES */
+body.dark {
+  --bg-color: #121212;
+  --text-color: #eee;
+  --nav-bg: #222;
+  --nav-text: #eee;
+}
+
+body.dark .navbar {
+  background: var(--nav-bg);
+  color: var(--nav-text);
+}
+
+body.dark .mobile-menu {
+  background: var(--nav-bg);
+}
+
+body.dark .theme-btn:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+body.dark .social-btn {
+  background: #333;
+  color: #fff;
+  border-color: #555;
+}
+
+body.dark .social-btn:hover {
+  background: #444;
+}
+
+body.dark .portfolio-tile {
+  background: #2d3748;
+  border-color: #4a5568;
+  color: #e2e8f0;
+}
+
+body.dark .portfolio-tile:hover {
+  background: #4a5568;
+}
+
+body.dark .portfolio-tile-image {
+  background: #1a202c;
+  border-bottom-color: #4a5568;
+}
+
+body.dark .portfolio-tile h3 {
+  color: #e2e8f0;
+}
+
+body.dark .caption {
+  color: #a0a0a0;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+  
+  .burger {
+    display: block;
+  }
+  
+  .about-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .about-text {
+    order: 1;
+    padding-right: 0;
+  }
+
+  .about-profile {
+    order: 2;
+    margin-top: 2rem;
+  }
+  
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+@media (max-width: 480px) {
+  section {
+    padding: 1rem;
+  }
+}

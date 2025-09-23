@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">My Logo</div>
+
+      <!-- Desktop menu -->
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="mailto:olly200pen@gmail.com">Email</a></li>
+        <li><a href="https://www.linkedin.com/in/oliver-dickinson-707649214/" target="_blank">LinkedIn</a></li>
+        <li><a href="https://github.com/o1i2000" target="_blank">Github</a></li>
+      </ul>
+
+      <!-- Actions -->
+      <div class="nav-actions">
+        <!-- Light/Dark Mode Toggle -->
+        <button id="theme-toggle" class="theme-btn">🌙</button>
+        <!-- Burger Menu -->
+        <button class="burger" id="burger">&#9776;</button>
+      </div>
+    </nav>
+
+    <!-- Mobile menu (hidden by default) -->
+    <ul class="mobile-menu" id="mobileMenu">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="mailto:olly200pen@gmail.com">Email</a></li>
+      <li><a href="https://www.linkedin.com/in/oliver-dickinson-707649214/" target="_blank">LinkedIn</a></li>
+      <li><a href="https://github.com/o1i2000" target="_blank">Github</a></li>
+    </ul>
+  </header>
+
+
+<section id="home" class="hero">
+  <img src="assets/yosemite.jpg" alt="Oliver Dickinson - Data Analyst" class="hero-img">
+  <div class="hero-text">
+    <h1>Oliver Dickinson</h1>
+    <p>Data Analyst</p>
+  </div> 
+</section>
+
+  <!--About section-->
+  <section id="about" class="about">
+    <div class="about-container">
+      <!-- Left column: text -->
+      <div class="about-text">
+        <br>
+        <h2>About Me</h2>
+        <br>
+        <p>Hello! I’m <strong>Oliver Dickinson</strong> — a naturally curious Data Analyst with a passion for exploring data, solving problems, and turning insights into meaningful action.
+           I hold a degree in <strong>Computer Science from Northumbria University</strong> and have hands-on experience with <ul>SQL, R, Python, Java, and Machine Learning and Google Sheets.</ul> I’m eager to kick-start my career as a Data Analyst and put my skills to work in a professional setting.
+           Outside of work, I’m an active person who loves the outdoors. I enjoy bouldering and hiking whenever I can, and I also play sports such as tennis, golf, and padel.
+           Below, I’ve included some of the projects I’ve worked on since graduating. These range from industry-style projects to personal ones that I’ve enjoyed building for both learning and fun.
+           
+        <p><br><em>Let's connect and create something great together!</em></p>
+      </div>
+
+      
+      <!-- Right column: profile + socials -->
+      <div class="about-profile">
+        <img src="assets/me.jpg" alt="Oliver Dickinson" class="profile-pic">
+        <p class="caption">Hello, I'm Oliver Dickinson!</p>
+        <h3>Socials</h3>
+        <div class="social-buttons">
+          <a href="https://www.linkedin.com/in/oliver-dickinson-707649214/" target="_blank" class="social-btn">
+            <img src="assets/linked_in.jpg" alt="LinkedIn" class="social-icon">
+            LinkedIn
+          </a>
+          <a href="mailto:olly200pen@gmail.com" target="_blank" class="social-btn">
+            <img src="assets/gmail.jpg" alt="Email" class="social-icon">
+            Email
+          </a>
+          <a href="https://github.com/o1i2000" target="_blank" class="social-btn">
+            <img src="assets/github.jpg" alt="GitHub" class="social-icon">
+            GitHub
+          </a>
+          <a href="https://public.tableau.com/app/profile/oliver.dickinson/vizzes" target="_blank" class="social-btn">
+            <img src="assets/tableau.jpg" alt="Tableau" class="social-icon">
+            Tableau
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section - New Tile Layout -->
+  <section id="projects">
+    <h2>Stakeholder Projects</h2>
+    <div class="portfolio-grid">
+
+      <a href="#" class="portfolio-tile">
+        <div class="portfolio-tile-image">
+          <img src="assets/gmail.jpg" alt="Personal Project 1">
+        </div>
+        <div class="portfolio-tile-content">
+          <h3>Steakholder Project 1</h3>
+          <div class="portfolio-tags">
+            <span class="portfolio-pill pill-label">Tools:</span>
+            <span class="portfolio-pill pill-python">Python</span>
+            <span class="portfolio-pill pill-pandas">Pandas</span>
+          </div>
+          <span class="portfolio-link">github.com</span>
+        </div>
+      </a>
+
+      <!-- Steakholder project 2 -->
+      <a href="#" class="portfolio-tile">
+        <div class="portfolio-tile-image">
+          <img src="assets/gmail.jpg" alt="Personal Project 1">
+        </div>
+        <div class="portfolio-tile-content">
+          <h3>Steakholder Project 1</h3>
+          <div class="portfolio-tags">
+            <span class="portfolio-pill pill-label">Tools:</span>
+            <span class="portfolio-pill pill-python">Python</span>
+            <span class="portfolio-pill pill-pandas">Pandas</span>
+          </div>
+          <span class="portfolio-link">github.com</span>
+        </div>
+      </a>
+
+      <!-- Steakholder Project 3 -->
+      <a href="tableau.html" class="portfolio-tile">
+        <div class="portfolio-tile-image">
+          <img src="assets/tableau.jpg" alt="Tableau Dashboards">
+        </div>
+        <div class="portfolio-tile-content">
+          <h3>Tableau Dashboards</h3>
+          <div class="portfolio-tags">
+            <span class="portfolio-pill pill-label">Tools:</span>
+            <span class="portfolio-pill pill-tableau">Tableau</span>
+            <span class="portfolio-pill pill-sheets">Sheets</span>
+          </div>
+          <span class="portfolio-link">View Dashboards</span>
+        </div>
+      </a>
+      
+    </div>
+  </section>
+
+  <!-- Personal Projects -->
+  <section id="personal-projects">
+    <h2>Personal Projects</h2>
+    <div class="portfolio-grid">
+
+      <!-- Project 1 -->
+      <a href="ride_share_capstone_project_updated.html" target="_blank" class="portfolio-tile">
+        <div class="portfolio-tile-image">
+          <img src="assets/bikeshare.jpg" alt="ByteX Logo">
+        </div>
+        <div class="portfolio-tile-content">
+          <h3>Bike share capstone project</h3>
+          <div class="portfolio-tags">
+            <span class="portfolio-pill pill-label">Tools:</span>
+            <span class="portfolio-pill pill-r">R</span>
+            <span class="portfolio-pill pill-sheets">Excel/ Sheets </span>
+            
+          </div>
+          <span class="portfolio-link">github.com</span>
+        </div>
+      </a>
+
+      <!-- Project 2 -->
+      <a href="Steam store Analysis project (working on this one for the website.html" target="_blank" class="portfolio-tile">
+        <div class="portfolio-tile-image">
+          <img src="assets/steam2.jpg" alt="MGH Logo">
+        </div>
+        <div class="portfolio-tile-content">
+          <h3>Steam Store Analysis</h3>
+          <div class="portfolio-tags">
+            <span class="portfolio-pill pill-label">Tools:</span>
+            <span class="portfolio-pill pill-python">Python</span>
+            <span class="portfolio-pill pill-pandas">Pandas</span>
+            <span class="portfolio-pill pill-jupyter">Jupyter notebook</span>
+          </div>
+          <span class="portfolio-link">github.com</span>
+        </div>
+      </a>
+
+      <!-- Project 3 - Placeholder -->
+      <a href="ride_share_capstone_project_updated.html" class="portfolio-tile">
+        <div class="portfolio-tile-image">
+          <img src="assets/FB_IMG_1703194267610.jpg" alt="Project 3">
+        </div>
+        <div class="portfolio-tile-content">
+          <h3>Personal Bouldering Analysis</h3>
+          <div class="portfolio-tags">
+            <span class="portfolio-pill pill-label">Tools:</span>
+            <span class="portfolio-pill pill-tool">Coming Soon</span>
+          </div>
+          <span class="portfolio-link">Link coming soon</span>
+        </div>
+      </a>
+
+      <!-- Personal Project 1 -->
+    </div>
+  </section>
+
+  <section id="Education and certifications">
+    <h2>Education and certifications</h2>
+    <div class="portfolio-grid">
+      <!-- Personal Project 1 -->
+      <a href="certi.html" class="portfolio-tile">
+        <div class="portfolio-tile-image">
+          <img src= "assets/CERTI_DATA/coursera3.png" alt="Personal Project 1">
+        </div>
+        <div class="portfolio-tile-content">
+          <h3>Google Coursera, Data Analytics courses 1-9</h3>
+
+          </div>
+          
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+
+  <!-- Contact -->
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>Email: <a href="mailto:olly200pen@gmail.com">olly200pen@gmail.com</a></p>
+    <p>Mobile: 07824332349</p>
+  </section>
+
+
+  <script src="script.js"></script>
+</body>
+</html>

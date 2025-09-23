@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="generator" content="pandoc" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+    <title>Bike Share Analysis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+            min-height: 100vh;
+        }
+
+        .header {
+            border-bottom: 3px solid #e9ecef;
+            padding-bottom: 30px;
+            margin-bottom: 40px;
+        }
+
+        .title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .author {
+            font-size: 1.1rem;
+            color: #6c757d;
+            margin-bottom: 5px;
+        }
+
+        .date {
+            font-size: 1rem;
+            color: #6c757d;
+        }
+
+        .summary {
+            background: #f8f9fa;
+            border-left: 4px solid #007bff;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .summary p {
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+        }
+
+        .section {
+            margin: 40px 0;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 10px;
+        }
+
+        .subsection-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #495057;
+            margin: 30px 0 15px 0;
+        }
+
+        .content p {
+            margin-bottom: 15px;
+            font-size: 1rem;
+            line-height: 1.7;
+            text-align: justify;
+        }
+
+        .content ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .content li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+
+        .insights-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 30px 0;
+        }
+
+        .insights-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .insights-content {
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        .insights-content p {
+            margin-bottom: 15px;
+        }
+
+        .insights-content ul {
+            margin-left: 20px;
+        }
+
+        .insights-content li {
+            margin-bottom: 10px;
+        }
+
+        .chart-placeholder {
+            background: #f8f9fa;
+            border: 2px dashed #dee2e6;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            font-style: italic;
+        }
+
+        .methodology {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .methodology-title {
+            font-weight: 600;
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .back-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            box-shadow: 0 2px 10px rgba(0,123,255,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .recommendations {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 30px 0;
+        }
+
+        .recommendations-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .recommendations ul {
+            margin-left: 0;
+            list-style: none;
+        }
+
+        .recommendations li {
+            margin-bottom: 15px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .recommendations li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            color: #c8e6c9;
+        }
+
+        strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .title {
+                font-size: 2rem;
+            }
+            
+            .back-link {
+                position: static;
+                display: inline-block;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-link">← Back to Portfolio</a>
+    
+    <div class="container">
+        <div class="header">
+            <h1 class="title">Bike Share Analysis</h1>
+            <div class="author">Oliver Dickinson</div>
+            <div class="date">2025-09-07</div>
+        </div>
+
+        <div class="summary">
+            <p>This report explores bike share data to understand the differences between <strong>members</strong> and <strong>casual riders</strong>. We will focus on usage patterns such as ride duration, time of day, station popularity, and distance traveled. The goal is to provide insights that can help increase membership rates.</p>
+            
+            <p>This study hopes to inform marketing campaigns by providing data insights that focus on the differences between Casual users of the bike share app and Members</p>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Setup</h2>
+            <div class="content">
+                <p>In the ask phase of the data analysis we need to look at the current position that the bike share app has found itself in. we need to find context that we can work with later in out analysis</p>
+
+                <p>The company in question is Bike share. There company model is based on public use bicycles. Bike share offers both a casual model and a subscription model. The company is commited to inclusivity of bikes offering docked bikes.</p>
+
+                <p>The data has been sourced from the Google Coursera Dataset. Due to the size of the entire dataset we have narrowed down our analysis to focus on the full year of 2022</p>
+
+                <h3 class="subsection-title">Key Questions</h3>
+                <ul>
+                    <li><strong>How do casual riders differ in the time and location of bike usage compared to members?</strong></li>
+                    <li><strong>What patterns can we find about casual and membership users and can this be used in a marketing campaign?</strong></li>
+                    <li><strong>Are there any trends over time that we can explore?</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="methodology">
+            <div class="methodology-title">Assumptions and Limitations</div>
+            <p>There are some key limitations with the data. The main limitation of this analysis is that its only focusing on the year 2022. This is due to the size of the data set and the power of my computer while focusing on one year can give a good overview of the bike usage it is important to note that a larger dataset could provide more accurate insights than this analysis</p>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Data Cleaning</h2>
+            <div class="content">
+                <p>We begin by installing all necessary packages for the analysis and importing the dataset. As the data is all in separate spreadsheets we need to combine all data to one larger data set.</p>
+
+                <div class="code-block">
+# Load libraries
+library(dbplyr)
+library(tidyr)
+library(tidyverse)
+library(ggplot2)
+library(janitor)
+library(readr)
+library(lubridate)
+library(Amelia)
+library(geosphere)
+library(forcats)
+
+# Combine all CSV files
+df_bikes <- data_all %>%
+  lapply(function(file) {
+    read_csv(file, col_names = col_names, skip = 1)
+  }) %>%
+  bind_rows()
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Missing Data Analysis</h2>
+            <div class="content">
+                <div class="chart-placeholder">
+                    Missing Values per Column Chart
+                    <br><small>Shows distribution of missing values across dataset columns</small>
+                </div>
+                
+                <p>From the plot we can see that there is a large number of missing values in the columns; start_station_name, start_station_id, end_station_name and end_station_id. While this may skew results that are based on these columns the majority of the Analysis will be based on the remaining columns. Because we will not need to use the columns with the missing data we will leave it as it is.</p>
+
+                <div class="chart-placeholder">
+                    Membership Type Distribution Charts
+                    <br><small>Bar chart and percentage breakdown of casual vs member usage</small>
+                </div>
+
+                <p>From the percentage visualization we can see that the majority of users are members with 40% of users being casual. To meet shareholders goals this analysis hopes to provide feedback on how to increase the percentage of Member style accounts</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Feature Engineering</h2>
+            <div class="content">
+                <p>During this phase we will mutate and modify the data so it is easier to use when plotting analysis. The main area of change is adding new columns for important sets of information on casual and members style users. We will create new columns for; start month, weekday, hour and end hour. Using these columns we can learn more about key parts of the data that otherwise couldn't be used.</p>
+
+                <div class="code-block">
+# Feature engineering
+df_bikes$ride_duration <- round(as.numeric(difftime(df_bikes$ended_at,df_bikes$started_at,units = "mins")))
+df_bikes$month <- month(df_bikes$started_at,label=TRUE)
+df_bikes$wday <- wday(df_bikes$started_at,label=TRUE)
+df_bikes$start_hour <- hour(df_bikes$started_at)
+df_bikes$end_hour <- hour(df_bikes$ended_at)
+
+# Haversine distance (km)
+df_bikes$trip_distance_km <- distHaversine(
+  cbind(df_bikes$start_lng, df_bikes$start_lat),
+  cbind(df_bikes$end_lng, df_bikes$end_lat)
+) / 1000
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Analysis Phase</h2>
+            <div class="content">
+                <p>Using the data we have modified we can now plot some key metrics. We will be focusing only on comparing the casual memberships with the member users as this is key to our business objective.</p>
+
+                <h3 class="subsection-title">Trips per Hour</h3>
+                <div class="chart-placeholder">
+                    Hourly Trip Distribution by Membership Type
+                    <br><small>Histogram showing peak usage times for casual vs member riders</small>
+                </div>
+
+                <div class="insights-box">
+                    <div class="insights-title">Key Insights - Hourly Usage</div>
+                    <div class="insights-content">
+                        <p>From this plot we can see some key insights into differences between membership types. While the plot shows steady usage from midnight to 5am, there is a sharp spike of usage from Subscription members between the hours of 5:30am - 9am and between 4pm - 6/7pm.</p>
+                        
+                        <p><strong>Marketing Opportunities:</strong></p>
+                        <ul>
+                            <li>Discount bikes during twilight hours due to minimal usage</li>
+                            <li>Promote commuter benefits to casual riders during peak hours</li>
+                            <li>Target promotional efforts highlighting work commute usage</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3 class="subsection-title">Trips per Day</h3>
+                <div class="chart-placeholder">
+                    Weekly Trip Distribution by Membership Type
+                    <br><small>Bar chart showing usage patterns across days of the week</small>
+                </div>
+
+                <p>The days of the week plot supports the findings in the hours of the day plot we just made. As we can see the usage from the subscribers is higher during weekdays and lowers slightly during the weekend. Whereas casual riders show the opposite trend. This suggests a potential marketing opportunity by promoting weekend usage for those casual members.</p>
+
+                <h3 class="subsection-title">Trips per Month</h3>
+                <div class="chart-placeholder">
+                    Monthly Trip Distribution by Membership Type
+                    <br><small>Seasonal usage patterns throughout 2022</small>
+                </div>
+
+                <div class="insights-box">
+                    <div class="insights-title">Seasonal Insights</div>
+                    <div class="insights-content">
+                        <p>We can see a clear trend that the numbers of casual riders decreases during the colder months. While subscribers decrease towards December and remain low towards February, they maintain much higher usage than casual users.</p>
+                        
+                        <p><strong>Winter Marketing Strategies:</strong></p>
+                        <ul>
+                            <li>Offer loyalty discounts to casual members during colder months</li>
+                            <li>Bundle winter rides with perks like hot drink coupons</li>
+                            <li>"Ride all winter for $x" promotional campaigns</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3 class="subsection-title">Ride Duration Distribution</h3>
+                <div class="chart-placeholder">
+                    Ride Duration Histogram by Membership Type
+                    <br><small>Distribution of trip lengths for casual vs member riders</small>
+                </div>
+
+                <p>The ride duration table shows that the majority of rides taken by people are below the 25 minute mark this trend occurs for both casual and subscribers. Offering deals on rides under or over 25 minutes could increase the number of rides taken over a short distance.</p>
+
+                <h3 class="subsection-title">Bike Type Usage</h3>
+                <div class="chart-placeholder">
+                    Bike Type Preferences by Membership Type
+                    <br><small>Usage distribution across different bike types</small>
+                </div>
+
+                <p>This graph shows that there is very limited usage in docked bikes. This lack of usage could be due to a number of issues and I would recommend investigating further into why these bikes take up such a small segment of the overall bike share market.</p>
+
+                <h3 class="subsection-title">Top 10 Start Stations</h3>
+                <div class="chart-placeholder">
+                    Most Popular Starting Stations by Membership Type
+                    <br><small>Horizontal bar chart showing station usage patterns</small>
+                </div>
+
+                <p>Looking at the top stations that bikes are used from we can see that the largest usage is at Streeter Dr & Grand Avenue. However the numbers show that the majority of bikes here are used by casual members. This is likely due to it being a tourist hotspot in the city. Those stations that have higher membership usage are likely areas that commuters use more.</p>
+            </div>
+        </div>
+
+        <div class="recommendations">
+            <div class="recommendations-title">Key Takeaways and Recommendations for Increasing Subscribers</div>
+            <ul>
+                <li>Promoting riding incentives for casual members during the winter months. Offer discounts or rewards to those that ride in the winter</li>
+                <li>Promote subscriptions at key bike stations where the usage of bikes is largely dominated by casual users</li>
+                <li>Promote membership savings to those casual users that use bikes regularly each month. Those that can save by using a membership are likely to switch</li>
+                <li>Promote weekday riding to casual members as there is a large drop off during the week</li>
+                <li>Promoting and offering deals to those that commute daily can lead to an increase in memberships. Promoting on other public transport could target the key demographic of commuters</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
