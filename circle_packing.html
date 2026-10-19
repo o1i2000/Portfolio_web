@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Circle Packing – Genetic Algorithm</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="circle_packing.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">My Portfolio</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#personal-projects">Projects</a></li>
+        <li><a href="mailto:olly200pen@gmail.com">Email</a></li>
+        <li><a href="https://www.linkedin.com/in/oliver-dickinson-707649214/" target="_blank">LinkedIn</a></li>
+        <li><a href="https://github.com/o1i2000" target="_blank">Github</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button id="theme-toggle" class="theme-btn">🌙</button>
+        <button class="burger" id="burger">&#9776;</button>
+      </div>
+    </nav>
+    <ul class="mobile-menu" id="mobileMenu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#personal-projects">Projects</a></li>
+      <li><a href="mailto:olly200pen@gmail.com">Email</a></li>
+      <li><a href="https://www.linkedin.com/in/oliver-dickinson-707649214/" target="_blank">LinkedIn</a></li>
+      <li><a href="https://github.com/o1i2000" target="_blank">Github</a></li>
+    </ul>
+  </header>
+
+  <main class="cp-page">
+    <!-- Intro -->
+    <section class="cp-intro">
+      <h1>Circle Packing: Greedy vs Random Search vs Genetic Algorithm</h1>
+      <p class="cp-lede">
+        The task is to fit a set of circles of different sizes into the smallest possible enclosing circle.
+        I wrote three solutions in Processing (Java) and compared them. The code has been ported to JavaScript
+        so it <strong>runs live in your browser</strong>. Choose a test set, adjust the parameters and press run.
+      </p>
+      <div class="portfolio-tags">
+        <span class="portfolio-pill pill-label">Tools:</span>
+        <span class="portfolio-pill pill-tool">Java / Processing</span>
+        <span class="portfolio-pill pill-python">JavaScript</span>
+        <span class="portfolio-pill pill-r">Genetic Algorithms</span>
+        <span class="portfolio-pill pill-jupyter">Optimisation</span>
+      </div>
+      <p><a class="portfolio-link" href="https://github.com/o1i2000/Circle-Packing-Genetic-Algorithm-" target="_blank">View the original source code on GitHub →</a></p>
+    </section>
+
+    <!-- Controls -->
+    <section class="cp-panel">
+      <div class="cp-controls">
+        <div class="cp-group">
+          <h3>1 · Test set</h3>
+          <label for="dataset">Radii set from the original sketch</label>
+          <select id="dataset"></select>
+          <p class="cp-meta" id="dataset-meta"></p>
+          <label for="radii-input">Radii</label>
+          <textarea id="radii-input" rows="3" spellcheck="false"></textarea>
+          <p class="cp-error" id="radii-error"></p>
+        </div>
+
+        <div class="cp-group">
+          <h3>2 · Genetic algorithm</h3>
+          <div class="cp-fields">
+            <label>Population <input id="p-pop" type="number" min="4" max="500" value="100"></label>
+            <label>Generations <input id="p-gens" type="number" min="0" max="1000" value="100"></label>
+            <label>Mutation rate <input id="p-mut" type="number" min="0" max="1" step="0.001" value="0.029"></label>
+            <label>Tournament size <input id="p-tourn" type="number" min="1" max="200" value="20"></label>
+            <label>Selection pressure <input id="p-press" type="number" min="0" max="1" step="0.05" value="0.4"></label>
+          </div>
+          <div class="cp-mini-btns">
+            <button type="button" class="cp-btn-link" id="btn-preset-orig">Original settings</button>
+            <button type="button" class="cp-btn-link" id="btn-preset-fast">Quick run</button>
+          </div>
+        </div>
+
+        <div class="cp-group">
+          <h3>3 · Random search</h3>
+          <div class="cp-fields">
+            <label>Iterations <input id="p-iter" type="number" min="1" max="20000" value="450"></label>
+          </div>
+          <div class="cp-mini-btns">
+            <button type="button" class="cp-btn-link" id="btn-match">Match GA evaluation budget</button>
+          </div>
+          <p class="cp-meta">The original used 450 random orderings. Matching the GA's budget gives a fairer comparison.</p>
+        </div>
+      </div>
+
+      <div class="cp-actions">
+        <button class="cp-btn primary" id="btn-all">▶ Run all three</button>
+        <button class="cp-btn" id="btn-greedy">Greedy</button>
+        <button class="cp-btn" id="btn-random">Random</button>
+        <button class="cp-btn" id="btn-ga">Genetic algorithm</button>
+        <button class="cp-btn danger" id="btn-stop" disabled>■ Stop</button>
+      </div>
+    </section>
+
+    <!-- Packings -->
+    <section class="cp-results">
+      <div class="cp-cards">
+        <div class="cp-card" id="card-greedy">
+          <div class="cp-card-head"><h3>Greedy</h3><span class="cp-badge">sorted smallest → largest</span></div>
+          <canvas class="cp-canvas" id="cv-greedy"></canvas>
+          <div class="cp-stat"><span>Boundary</span><strong id="best-greedy">—</strong></div>
+          <div class="cp-sub" id="sub-greedy"></div>
+          <div class="cp-prog"><div id="prog-greedy"></div></div>
+        </div>
+        <div class="cp-card" id="card-random">
+          <div class="cp-card-head"><h3>Random search</h3><span class="cp-badge">best of N shuffles</span></div>
+          <canvas class="cp-canvas" id="cv-random"></canvas>
+          <div class="cp-stat"><span>Boundary</span><strong id="best-random">—</strong></div>
+          <div class="cp-sub" id="sub-random"></div>
+          <div class="cp-prog"><div id="prog-random"></div></div>
+        </div>
+        <div class="cp-card" id="card-ga">
+          <div class="cp-card-head"><h3>Genetic algorithm</h3><span class="cp-badge">evolving order</span></div>
+          <canvas class="cp-canvas" id="cv-ga"></canvas>
+          <div class="cp-stat"><span>Boundary</span><strong id="best-ga">—</strong></div>
+          <div class="cp-sub" id="sub-ga"></div>
+          <div class="cp-prog"><div id="prog-ga"></div></div>
+        </div>
+      </div>
+      <p class="cp-meta cp-center">Numbers are circle IDs (their position in the input list). The orange circle was placed first, at the centre. The red dashed line is the enclosing boundary. <strong>Lower is better.</strong></p>
+    </section>
+
+    <!-- Convergence + table -->
+    <section class="cp-analysis">
+      <div class="cp-chart-wrap">
+        <div class="cp-card-head">
+          <h3>Convergence</h3>
+          <label class="cp-check"><input type="checkbox" id="show-mean" checked> Show GA generation mean</label>
+        </div>
+        <canvas id="cv-chart"></canvas>
+        <div id="chart-legend" class="cp-legend"></div>
+      </div>
+      <div class="cp-table-wrap">
+        <h3>Results</h3>
+        <table class="cp-table">
+          <thead><tr><th>Algorithm</th><th class="num">Boundary</th><th class="num">vs Greedy</th><th class="num">Placements</th><th class="num">Time</th></tr></thead>
+          <tbody id="results-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Write-up -->
+    <section class="cp-writeup">
+      <h2>How it works</h2>
+      <div class="cp-explain">
+        <div>
+          <h3>The placement rule</h3>
+          <p>Every method uses the same decoder, so the only thing that changes is the <em>order</em> of the circles.
+            The first circle goes in the centre. For each next circle, 360 candidate points are tested around every circle already placed.
+            Points that would cause an overlap are rejected, and the circle goes at the free point closest to the centre.
+            The score is the radius of the smallest circle, centred on the middle, that encloses everything.</p>
+        </div>
+        <div>
+          <h3>Greedy</h3>
+          <p>The circles are sorted by radius and placed in that one order. It is deterministic and needs only a single placement,
+            so it is very fast. It also gives a baseline that the search methods need to beat.</p>
+        </div>
+        <div>
+          <h3>Random search</h3>
+          <p>The order is shuffled N times, each one is evaluated, and the best is kept. This is a simple, unbiased search
+            that shows how much a smarter method actually adds.</p>
+        </div>
+        <div>
+          <h3>Genetic algorithm</h3>
+          <p>Each individual is a <strong>permutation</strong> of circle IDs. Parents are chosen by tournament selection.
+            With probability equal to the selection pressure the fittest of the tournament wins; otherwise a random entrant does.
+            They are recombined with <strong>ordered crossover (OX)</strong>, which keeps the child a valid permutation,
+            and a <strong>swap mutation</strong> is then applied. The best ordering found in any generation is kept.</p>
+        </div>
+      </div>
+      <h3>What the comparison shows</h3>
+      <ul class="cp-findings">
+        <li>Order matters a great deal. For the same circles, a good ordering can shrink the boundary by 25–30% compared with a smallest-first greedy order.</li>
+        <li>Random search improves quickly at first and then levels off. The GA keeps improving because crossover passes on useful sub-sequences of placements.</li>
+        <li>For a fair test, use <em>Match GA evaluation budget</em> so random search gets as many placements as the GA. The chart's x-axis counts placements, not generations, for the same reason.</li>
+        <li>The algorithms are stochastic, so run them a few times. The spread between runs is part of the result.</li>
+      </ul>
+      <p class="cp-meta">Note: this browser version keeps the original logic. To make it faster, it compares squared distances and skips candidate points that could not beat the current best. These changes give the same placements.</p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+  <script src="circle_packing.js"></script>
+</body>
+</html>
